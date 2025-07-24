@@ -4,12 +4,24 @@ from scraper import get_prices_from_all_sites
 from pushover import send_notification
 
 print("Welcome to Hotel Price Watcher!")
-hotel_name = input("Enter hotel name: ").strip()
-check_in = input("Enter check-in date (YYYY-MM-DD): ").strip()
-check_out = input("Enter check-out date (YYYY-MM-DD): ").strip()
-threshold = float(input("Alert me when price is below (EUR): ").strip())
 
-print(f"\nTracking '{hotel_name}' from {check_in} to {check_out} under €{threshold}...")
+print("Enter hotel name:")
+hotel_name = input().strip()
+
+print("Enter check-in date (YYYY-MM-DD):")
+check_in = input().strip()
+
+print("Enter check-out date (YYYY-MM-DD):")
+check_out = input().strip()
+
+print("Alert me when price is below (EUR):")
+try:
+    threshold = float(input().strip())
+except ValueError:
+    print("Invalid price. Exiting.")
+    exit(1)
+
+print(f"\nTracking '{hotel_name}' from {check_in} to {check_out} under €{threshold}...\n")
 
 def price_watch_loop():
     while True:
