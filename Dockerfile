@@ -5,4 +5,4 @@ COPY . .
 
 RUN pip install --no-cache-dir requests
 
-CMD ["python", "hotel_alert_app.py"]
+CMD ["python", "hotel_alert_env.py"]
