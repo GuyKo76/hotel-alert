@@ -1,20 +1,22 @@
+
 import time
 import threading
+import sys
 from scraper import get_prices_from_all_sites
 from pushover import send_notification
 
 print("Welcome to Hotel Price Watcher!")
 
-print("Enter hotel name:")
+print("Enter hotel name: ", end="", flush=True)
 hotel_name = input().strip()
 
-print("Enter check-in date (YYYY-MM-DD):")
+print("Enter check-in date (YYYY-MM-DD): ", end="", flush=True)
 check_in = input().strip()
 
-print("Enter check-out date (YYYY-MM-DD):")
+print("Enter check-out date (YYYY-MM-DD): ", end="", flush=True)
 check_out = input().strip()
 
-print("Alert me when price is below (EUR):")
+print("Alert me when price is below (EUR): ", end="", flush=True)
 try:
     threshold = float(input().strip())
 except ValueError:
