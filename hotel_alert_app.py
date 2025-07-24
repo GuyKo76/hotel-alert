@@ -1,29 +1,24 @@
 
 import time
 import threading
-import sys
+import os
 from scraper import get_prices_from_all_sites
 from pushover import send_notification
 
-print("Welcome to Hotel Price Watcher!")
-
-print("Enter hotel name: ", end="", flush=True)
-hotel_name = input().strip()
-
-print("Enter check-in date (YYYY-MM-DD): ", end="", flush=True)
-check_in = input().strip()
-
-print("Enter check-out date (YYYY-MM-DD): ", end="", flush=True)
-check_out = input().strip()
-
-print("Alert me when price is below (EUR): ", end="", flush=True)
+hotel_name = os.getenv("HOTEL_NAME")
+check_in = os.getenv("CHECK_IN")
+check_out = os.getenv("CHECK_OUT")
 try:
-    threshold = float(input().strip())
-except ValueError:
-    print("Invalid price. Exiting.")
+    threshold = float(os.getenv("PRICE_THRESHOLD"))
+except (TypeError, ValueError):
+    print("Invalid or missing PRICE_THRESHOLD. Exiting.")
     exit(1)
 
-print(f"\nTracking '{hotel_name}' from {check_in} to {check_out} under €{threshold}...\n")
+if not all([hotel_name, check_in, check_out]):
+    print("Missing environment variables. Set HOTEL_NAME, CHECK_IN, CHECK_OUT.")
+    exit(1)
+
+print(f"Tracking '{hotel_name}' from {check_in} to {check_out} under €{threshold}...\n")
 
 def price_watch_loop():
     while True:
